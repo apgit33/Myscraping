@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+{% block head %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} - MyScraping</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+    <link rel="stylesheet" href={% block css %}{% endblock %}>
+</head>
+{% endblock %}
+
+<body>
+    {% block menu %}
+        {% include 'menu.html.twig' %}
+    {% endblock %}
+    {% block content %}{% endblock %}
+    <div class="">
+        <div class="has-text-centered">
+            <p>&copy; Copyright {{ 'now'|date('Y') }} by <a href="https://adrienpaturot.fr">Paturot Adrien</a>.</p>
+        </div>
+    </div>
+    {% block scriptjs %}<script src="https://kit.fontawesome.com/6c7241f45d.js" crossorigin="anonymous"></script>{% endblock %}
+</body>
+
+</html>
