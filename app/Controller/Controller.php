@@ -43,6 +43,6 @@ class Controller
     {
         $twig = new TwigEnvironment(new TwigLoader($this->_path), [$this->_cache]);
 
-        echo $twig->load($name)->render($options);
+        echo $twig->load($name.'.html.twig')->render($options);
     }
 }
