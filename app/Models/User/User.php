@@ -57,7 +57,7 @@ class User
      *
      * @var boolean
      */
-    private $_validate;
+    private $_validate = false;
 
     /**
      * Get the id of the user.
@@ -124,7 +124,7 @@ class User
      *
      * @return  self
      */
-    public function set_lastName(string $_lastName)
+    public function setLastName(string $_lastName)
     {
         $this->_lastName = $_lastName;
 
