@@ -60,6 +60,13 @@ class User
     private $_validate = false;
 
     /**
+     * The validation string of the user.
+     *
+     * @var string
+     */
+    private $_validation;
+
+    /**
      * Get the id of the user.
      *
      * @return  integer
@@ -213,6 +220,30 @@ class User
     public function setValidate(boolean $_validate)
     {
         $this->_validate = $_validate;
+
+        return $this;
+    }
+
+    /**
+     * Get the validation of the user.
+     *
+     * @return  string
+     */
+    public function getValidation()
+    {
+        return $this->_validation;
+    }
+
+    /**
+     * Set the validation of the user.
+     *
+     * @param  string  $_validation  The validation of the user.
+     *
+     * @return  self
+     */
+    public function setValidation(string $_validation)
+    {
+        $this->_validation = $_validation;
 
         return $this;
     }
