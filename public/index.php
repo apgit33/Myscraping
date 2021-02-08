@@ -7,7 +7,7 @@ use App\Router\Router;
 
 require dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . "vendor/autoload.php";
 
-define('BASE_PATH', '/cda/WebScrapping'); //adrienp/www/public/annonce/public
+define('BASE_PATH', '/'); //adrienp/www/public/annonce/public
 define('SERVER_URI', $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . BASE_PATH);
 
 $router = new Router($_GET['url']);
@@ -30,6 +30,11 @@ $router->get('/signup', function () use ($controllerView) {
 });
 $router->post('/signup', function ()use ($controller) {
     $controller->checkForm();
+});
+
+$router->get('/confirm-:slug', function($slug) use ($controller){
+    $controller->validate($slug);
+    // header("Refresh:5; url=".SERVER_URI."");
 });
 
 $router->get('/user/logout', function () {

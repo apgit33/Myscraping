@@ -31,14 +31,6 @@ f_signup.addEventListener('submit', e => {
         for( var index in datas.erreurs) {
             document.getElementById(index).innerHTML = datas.erreurs[index];
         }
-        // datas.erreurs.forEach((data) => {
-        //     // console.log(data.name[0]); 
-        //     if(data.check_firstname) {
-        //         let champ = document.createElement("p");
-        //         champ.innerHTML = data.check_firstname;
-        //         document.getElementById("check_firstname").appendChild(champ);
-        //     }
-        // });
     });
 });
 // *********** Fin Form ***********
