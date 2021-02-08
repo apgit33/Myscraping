@@ -1,0 +1,47 @@
+<nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <div class="navbar-item">
+            <p class="title is-uppercase logo">My Scraping</p>
+        </div>
+        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="side_bar">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+    <div class="navbar-menu">
+        <div class="navbar-start">
+            <div class="navbar-item is-uppercase">
+                home
+            </div>
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link is-uppercase">
+                    extraction
+                </a>
+        
+                <div class="navbar-dropdown">
+                    <a class="navbar-item ">
+                        New Extraction
+                    </a>
+                    <a class="navbar-item">
+                        Jobs
+                    </a>
+                    <hr class="navbar-divider">
+                    <a class="navbar-item">
+                        Report an issue
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <a class="navbar-item" href="{{ SERVER_URI }}/user/account">
+                    My account
+                </a>
+                <a class="navbar-item" href="{{ SERVER_URI }}/user/logout">
+                    Logout
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>

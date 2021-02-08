@@ -1,0 +1,73 @@
+{% extends "base.html.twig" %}
+{% block title %}
+Test
+{% endblock %}
+{% block css %}
+"assets/css/signup.css"
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div id="c_parent_login" class="columns is-centered is-desktop is-vcentered is-flex-touch">
+        <div class="column is-6 c_login">
+            <h2 class="title is-2 has-text-centered">REGISTER NEW ACCOUNT</h2>
+            <form id="form_signup" method="POST">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="field">
+                            <div class="control">
+                                <input  class="input" type="text" name="firstName" id="f_name" value="{{ u_first_name }}" placeholder="Enter first name">
+                            </div>
+                            <p id="check_firstname" class="verif"></p>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <input  class="input" type="text" name="lastName" id="l_name" value="{{ u_last_name }}" placeholder="Enter last name">
+                            </div>
+                            <p id="check_lastname" class="verif"></p>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <input required class="input" type="email" name="email" id="email" value="{{ u_mail }}" placeholder="Enter email">
+                            </div>
+                            {# <p class="help is-danger">This email is invalid</p> #}
+                            <div id="check_mail" class="verif"></div>
+                        </div>
+                        
+                        <div class="field">
+                            <div class="control">
+                                <input class="input" type="text" name="phone" id="phone" value="{{ u_phone }}" placeholder="Enter phone">
+                            </div>
+                            <div id="check_phone" class="verif"></div>
+                        </div>
+    
+                        <div class="field">
+                            <div class="control">
+                                <input  class="input" type="password" name="password" placeholder="Enter password" id="password">
+                            </div>
+                            <div id="check_password" class="verif"></div>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <input  class="input" type="password" name="password_confirm" placeholder="Confirm password" id="password_confirm">
+                            </div>
+                            <div id="check_password_confirm" class="verif"></div>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <button class="button is-success">
+                                REGISTER
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scriptjs %}
+    <script src="assets/js/test.js" crossorigin="anonymous"></script>
+{% endblock %}
+

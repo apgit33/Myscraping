@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+{% block title %}
+Test
+{% endblock %}
+{% block css %}
+"assets/css/signin.css"
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div id="c_parent_login" class="columns is-centered is-desktop is-vcentered is-flex-touch">
+        <div class="column is-6 c_login">
+            <h2 class="title is-2 has-text-centered">SIGN IN</h2>
+            <form novalidate method="POST" id="f_login">
+                <div class="field">
+                    <div class="control has-icons-left">
+                        <input class="input is-medium" type="email" name="user_email" placeholder="Enter email" id="user_email" required >
+                        <div class="icon is-left">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control has-icons-left">
+                        <input class="input is-medium" type="password" name="user_password" placeholder="Enter password" id="user_password" required>
+                        <div class="icon is-left">
+                            <span class="fas fa-unlock-alt"></span>     
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <button class="input button is-centered is-medium" name="login">LOGIN</button>
+                    </div>
+                </div>
+            </form>
+            <div id="check_login" class="verif"></div>
+
+            <p>No account ? <a href="{{ SERVER_URI }}/user/signup">create one !</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
