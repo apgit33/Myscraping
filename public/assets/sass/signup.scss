@@ -1,0 +1,58 @@
+//list d'import
+@import "_fonts.scss";
+@import "_variables.scss";
+
+// -----------------
+// Formulaire de connexion
+// -----------------
+#c_parent_login {
+    height: 100vh;
+    .c_login {
+        background: #FFFFFF;
+        box-shadow: 0px 0px 4px 4px #BBBBBB;
+        border-radius: 62px;
+        max-width: 634px;
+        #f_login {
+            input {
+                font-family: $font-text; 
+                &[name=login] {
+                    background-color: $color-primary;
+                    color: $color-secondary;
+                }
+                &:focus {
+                    border-color: $color-primary;
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+}
+
+body {
+    background-color: #3087b8;
+}
+.input {
+    border-radius: 8px;
+}
+
+.control {
+    max-width: 421px;
+    margin: 35px auto;
+}
+
+.column {
+    padding-top: 0;
+}
+h2 {
+    padding-top: 25px;
+    margin-top: 0px;
+    background-color: #36383E;
+    padding-bottom: 25px;
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: -13px;
+    margin-left: -12px;
+    border-top-left-radius: 60px;
+    border-top-right-radius: 60px;
+    color: white!important;
+}
