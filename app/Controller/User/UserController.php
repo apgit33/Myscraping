@@ -118,51 +118,53 @@ class UserController extends Controller
         $erreurs = [];
         $user = new User();
 
-        foreach ($_POST as $key => $pos) {
-            $_POST[$key] = trim($pos);
+        foreach ($_POST as $key => $value) {
+            $_POST[$key] = trim($value);
         }
 
         if (v::alpha('-')->length(2, 45)->validate($_POST['firstName'])) {
-            $user->setFirstName($_POST['firstName']);
+            $user->set_u_first_name($_POST['firstName']);
         } else {
             $erreurs['check_firstname'] = 'check firstname';
         }
         if (v::alpha('-')->length(2, 45)->validate($_POST['lastName'])) {
-            $user->setLastName($_POST['lastName']);
+            $user->set_u_last_name($_POST['lastName']);
         } else {
             $erreurs['check_lastname'] = 'check firstname';
         }
-        // if (!$this->existEmail($_POST['email'])) {
+        if (!$this->existEmail($_POST['email'])) {
             if(v::email()->validate($_POST['email'])) {
-                $user->setEmail($_POST['email']);
+                $user->set_u_email($_POST['email']);
             } else {
                 $erreurs['check_email'] = 'Email non valide';
             }
-        // } else {
-        //     $erreurs['check_email'] = 'Email deja existant';
-        // }
+        } else {
+            $erreurs['check_email'] = 'Email deja existant';
+        }
         if (v::phone()->validate($_POST['phone'])) {
-            $user->setPhone($_POST['phone']);
+            $user->set_u_phone($_POST['phone']);
         } else {
             $erreurs['check_phone'] = 'Entrez un numéro valide';
         }
         if (v::alpha('-')->length(2, 45)->validate($_POST['password'])) {
-            $user->setPassword($_POST['password']);
+            $user->set_u_password($_POST['password']);
             if ($_POST['password_confirm'] !== $_POST['password']) {
                 $erreurs['check_password_confirm'] = 'mdp confirmation';
             }
         } else {
             $erreurs['check_password'] = 'mdp';
         }
+
         if (empty($erreurs)) {
             $validation = true;
-            $user->setPassword(password_hash($user->getPassword(), PASSWORD_DEFAULT));
+            $user->set_u_password(password_hash($user->getPassword(), PASSWORD_DEFAULT));
             
             $mail_crypt = Crypt::encryptSimple($user->getEmail());
             $id_crypt = Crypt::encryptSimple($user->getId());
 
-            $user->setValidation(hash('sha1',"$mail_crypt&$id_crypt"));
+            $user->set_u_validation(hash('sha1',"$mail_crypt&$id_crypt"));
 
+            // var_dump($user);
             $this->addUser($user);
             $this->sendMail($user);
         } else {
@@ -189,6 +191,79 @@ class UserController extends Controller
         $sujet = "Myscraping - validez votre compte";
         $message = "Confirme ton compte: <a href = '".SERVER_URI."/confirm-".$user->getValidation()."'>Confirmation</a>.<br>";
 
-        Mail::mailTo($user,$sujet,$message);
+        // Mail::mailTo($user,$sujet,$message);
+    }
+
+    public function checkFormLogin()
+    {
+        $user = new User();
+
+        foreach ($_POST as $key => $pos) {
+            $_POST[$key] = trim($pos);
+        }
+
+        if(v::email()->validate($_POST['u_email'])) {
+           $user->hydrate($_POST);
+        }
+        $this->userExist($user);
+
+    }
+
+
+    public function userExist(User $user) 
+    {
+        $query = "SELECT u_id,u_first_name,u_last_name,u_phone,u_email,u_password,u_validation,u_id,u_validate FROM ws_users WHERE u_email=:email";
+        $datas = [
+            'email' => [
+                PDO::PARAM_STR => $user->getEmail()
+            ]
+        ];
+        $data = Database::executeSql($query,$datas);
+        
+        $data = $data->fetch(\PDO::FETCH_ASSOC);
+        
+        $erreurs['check_login'] = "Mauvais identifiant";
+        $validation = false;
+        if(password_verify($user->getPassword(),$data['u_password'])){
+
+            if($user->isValidate()) {
+                session_start();
+                $user->hydrate($data);
+                $_SESSION['user'] = serialize($user);
+                $validation = true;
+                $_SESSION['valid'] = true;
+            } else {
+                $erreurs['check_login'] = "pas validé renvoi mail ?";
+            }
+            
+        }
+
+        echo json_encode(array('validation' => $validation, 'erreurs' => $erreurs));
+    }
+
+    public function checkFormAccount() {
+        session_start();
+        $user = unserialize($_SESSION['user']);
+
+        foreach ($_POST as $key => $value) {
+            $_POST[$key] = trim($value);
+        }
+        $validation = false;
+        $erreurs['check_firstname'] = 'check firstname';
+
+        var_dump($_POST);
+        if (v::alpha('-')->length(2, 45)->validate($_POST['firstName'])) {
+            $user->set_u_first_name($_POST['firstName']);
+        } else {
+            $erreurs['check_firstname'] = 'check firstname';
+        }
+        if (v::alpha('-')->length(2, 45)->validate($_POST['lastName'])) {
+            $user->set_u_last_name($_POST['lastName']);
+        } else {
+            $erreurs['check_lastname'] = 'check firstname';
+        }
+        echo json_encode(array('validation' => $validation, 'erreurs' => $erreurs));
+
+
     }
 }

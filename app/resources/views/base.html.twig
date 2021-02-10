@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+    
 {% block head %}
 
 <head>
@@ -13,7 +14,9 @@
 
 <body>
     {% block menu %}
-        {% include 'menu.html.twig' %}
+        {% if user %}
+            {% include 'menu.html.twig' %}
+        {% endif %}
     {% endblock %}
     {% block content %}{% endblock %}
     <div class="">
@@ -21,7 +24,8 @@
             <p>&copy; Copyright {{ 'now'|date('Y') }} by <a href="https://adrienpaturot.fr">Paturot Adrien</a>.</p>
         </div>
     </div>
-    {% block scriptjs %}<script src="https://kit.fontawesome.com/6c7241f45d.js" crossorigin="anonymous"></script>{% endblock %}
+    <script src="https://kit.fontawesome.com/6c7241f45d.js" crossorigin="anonymous"></script>
+    {% block scriptjs %}{% endblock %}
 </body>
 
 </html>

@@ -2,6 +2,8 @@
 
 namespace App\Models\User;
 
+use JsonSerializable;
+
 /**
  * User class
  * 
@@ -15,7 +17,7 @@ class User
      *
      * @var integer
      */
-    protected $_id;
+    private $_id;
 
     /**
      * The first name of the user.
@@ -83,7 +85,7 @@ class User
      *
      * @return  self
      */ 
-    public function setId($_id)
+    public function set_u_id($_id)
     {
         $this->_id = $_id;
 
@@ -107,7 +109,7 @@ class User
      *
      * @return  self
      */
-    public function setFirstName(string $_firstName)
+    public function set_u_first_name(string $_firstName)
     {
         $this->_firstName = $_firstName;
 
@@ -131,7 +133,7 @@ class User
      *
      * @return  self
      */
-    public function setLastName(string $_lastName)
+    public function set_u_last_name(string $_lastName)
     {
         $this->_lastName = $_lastName;
 
@@ -155,7 +157,7 @@ class User
      *
      * @return  self
      */
-    public function setPhone(string $_phone)
+    public function set_u_phone(string $_phone)
     {
         $this->_phone = $_phone;
 
@@ -179,7 +181,7 @@ class User
      *
      * @return  self
      */
-    public function setEmail(string $_email)
+    public function set_u_email(string $_email)
     {
         $this->_email = $_email;
 
@@ -203,7 +205,7 @@ class User
      *
      * @return  self
      */
-    public function setPassword(string $_password)
+    public function set_u_password(string $_password)
     {
         $this->_password = $_password;
 
@@ -217,7 +219,7 @@ class User
      *
      * @return  self
      */
-    public function setValidate(boolean $_validate)
+    public function set_u_validate(bool $_validate)
     {
         $this->_validate = $_validate;
 
@@ -241,7 +243,7 @@ class User
      *
      * @return  self
      */
-    public function setValidation(string $_validation)
+    public function set_u_validation(string $_validation)
     {
         $this->_validation = $_validation;
 
@@ -266,5 +268,18 @@ class User
     public function isValidate()
     {
         return $this->_validate;
+    }
+
+    public function hydrate(array $data)
+    {
+        foreach ($data as $key => $value)
+        {
+            $method = 'set_'.$key;
+            // var_dump($method);
+            if(method_exists($this, $method))
+            {
+                $this->$method($value);
+            }    
+        }
     }
 }

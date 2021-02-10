@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Models\Mail;
+namespace App\Mail;
+
+use App\Models\User\User;
 
 /**
  * Class Mail gérant l'envoi d'e-mail
@@ -16,7 +18,7 @@ class Mail {
      * @param string $message - Message du mail
      * @return void
      */
-    static function mailTo($user,$sujet,$message){
+    static function mailTo(User $user,$sujet,$message="test"){
 
         // Create the Transport
         $transport = (new \Swift_SmtpTransport(SMTP,PORT,SECURITY))
@@ -27,13 +29,13 @@ class Mail {
         // Create the Mailer using your created Transport
         $mailer = new \Swift_Mailer($transport);
 
-        $body = "Bonjour $user->firstName $user->lastName,<br><br>";
+        $body = "Bonjour ".$user->getFullName().",<br><br>";
         $body .= $message;
         // Create a message
         $message = (new \Swift_Message($sujet))
         ->setContentType("text/html")
         ->setFrom([MAIL => FIRST_NAME.LAST_NAME])
-        ->setTo([$user->mail => "$user->firstName $user->lastName"])
+        ->setTo([$user->getEmail() => $user->getFullName()])
         ->setBody($body)
         ;
 
