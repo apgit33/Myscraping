@@ -14,26 +14,27 @@ class Router
         $this->url = $url;
     }
 
-    public function get($path, $callable, $name=null)
+    public function get($path, $callable, $name = null)
     {
-        return $this->add($path,$callable,$name, 'GET');
+        return $this->add($path, $callable, $name, 'GET');
     }
 
-    public function post($path, $callable, $name=null)
+    public function post($path, $callable, $name = null)
     {
-        return $this->add($path,$callable,$name, 'POST');
+        return $this->add($path, $callable, $name, 'POST');
     }
 
-    private function add($path, $callable, $name, $method) {
+    private function add($path, $callable, $name, $method)
+    {
         $route = new Route($path, $callable);
 
         $this->routes[$method][] = $route;
 
-        if(is_string($callable) && $name===null) {
+        if (is_string($callable) && $name === null) {
             $name = $callable;
         }
 
-        if($name) $this->namedRoutes[$name] = $route;
+        if ($name) $this->namedRoutes[$name] = $route;
 
         return $route;
     }
@@ -45,8 +46,7 @@ class Router
         foreach ($this->routes[$_SERVER['REQUEST_METHOD']] as $route) {
             if ($route->match($this->url)) return $route->call();
         }
-       
+
         return RouterException::view();
-        
     }
 }

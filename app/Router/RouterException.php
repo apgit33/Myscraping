@@ -6,8 +6,8 @@ use Exception;
 
 class RouterException extends Exception
 {
-
-    static function view() {
+    static function view()
+    {
         echo "something wrong";
     }
 }
