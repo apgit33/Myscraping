@@ -10,13 +10,18 @@
         background: #FFFFFF;
         box-shadow: 0px 0px 4px 4px #BBBBBB;
         border-radius: 62px;
-        max-width: 634px;
-        #f_login {
+        // max-width: 634px;
+        #form_signin {
+            .control input:not(:last-child) {
+                margin-bottom: 20px;
+            }
             input {
                 font-family: $font-text; 
+                border-radius: 8px;
                 &[name=login] {
-                    background-color: $color-primary;
-                    color: $color-secondary;
+                    background-color: $color-secondary;
+                    color: $color-primary;
+                    border: none;
                 }
                 &:focus {
                     border-color: $color-primary;
@@ -26,50 +31,34 @@
         }
     }
 }
-#c_parent_login {
-    height: 100vh;
-    .c_login {
-        #f_login {
-            input {
-                font-family: $font-text; 
-                &[name=login] {
-                    background-color: $color-primary;
-                    color: $color-secondary;
-                }
-                &:focus {
-                    border-color: $color-primary;
-                    box-shadow: none;
-                }
-            }
-        }
-    }
+
+.verif {
+    color: $color-red;
+    margin: 20px;
+    text-align: center;
 }
-.verif {color: $color-red;}
 body {
     background-color: #3087b8;
 }
-.input {
-    border-radius: 8px;
+
+.new {
+    padding-right: 25px;
+}
+.link, .link:hover {
+    color: #2348cf;
+
 }
 
-.control {
-    max-width: 421px;
-    margin: 35px auto;
-}
-
-.column {
-    padding-top: 0;
-}
 h2 {
     padding-top: 25px;
     margin-top: 0px;
     background-color: #36383E;
-    padding-bottom: 25px;
-    padding-right: 0px;
-    padding-left: 0px;
+    padding: 25px 0;
+
     margin-right: -13px;
     margin-left: -12px;
     border-top-left-radius: 60px;
     border-top-right-radius: 60px;
     color: white!important;
 }
+

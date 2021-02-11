@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 {% block title %}
-Test
+Connection
 {% endblock %}
 {% block css %}
 "assets/css/signin.css"
@@ -8,8 +8,8 @@ Test
 {% block content %}
 <div class="container">
     <div id="c_parent_login" class="columns is-centered is-desktop is-vcentered is-flex-touch">
-        <div class="column is-one-third c_login">
-            <h2 class="title is-2 has-text-centered">SIGN IN</h2>
+        <div class="column is-one-third c_login pt-0">
+            <h2 class="title is-3 has-text-centered">SIGN IN</h2>
             <form novalidate method="POST" id="form_signin">
                 <div class="field">
                     <div class="control has-icons-left">
@@ -33,9 +33,9 @@ Test
                     </div>
                 </div>
             </form>
-            <div id="check_login" class="verif"></div>
+            <p id="check_login" class="verif has-text-centered"></p>
 
-            <p>No account ? <a href="{{ SERVER_URI }}/signup">create one !</a></p>
+            <p class="new has-text-right">No account ? <a href="{{ SERVER_URI }}/signup" class="link">create one !</a></p>
         </div>
     </div>
 </div>

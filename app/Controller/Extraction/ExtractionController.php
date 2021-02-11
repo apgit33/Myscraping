@@ -15,7 +15,7 @@ class ExtractionController extends Controller{
      */
     public function getAll()
     {
-        session_start();
+        // session_start();
 
         $query = "SELECT * FROM ws_scraps WHERE s_user_id=:id";
         $data = [

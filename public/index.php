@@ -16,10 +16,18 @@ $controllerView = new Controller();
 $controller = new UserController();
 $controllerE = new ExtractionController();
 
+session_start();
+
 $router->get('/', function () use ($controllerE) {
-    $controllerE->render('index', [
-        'scraps' => $controllerE->getAll()
-    ]);
+    if (isset($_SESSION['user'])) {
+        $controllerE->render('index', [
+            'scraps' => isset($_SESSION['user']) ?? $controllerE->getAll()
+        ]);
+    } else {
+        header('Location: /signin');
+        exit();
+    }
+   
 });
 $router->get('/signin', function () use ($controllerView) {
     $controllerView->render('form_signin');
@@ -42,14 +50,14 @@ $router->post('/signup', function ()use ($controller) {
 
 $router->get('/confirm-:slug', function($slug) use ($controller){
     $controller->validate($slug);
-    // header("Refresh:5; url=".SERVER_URI."");
+    header("Refresh:5; url=".SERVER_URI."");
 });
 
 $router->get('/user/logout', function () use ($controller){
     $controller->logout();
 });
 $router->get('/user/account', function () use ($controllerView) {
-    session_start();
+    // session_start();
     $controllerView->render('form_user',[
         'user' => array_values((array)unserialize($_SESSION['user'])),
         'SERVER_URI' => SERVER_URI

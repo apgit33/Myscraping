@@ -222,27 +222,25 @@ class UserController extends Controller
         
         $data = $data->fetch(\PDO::FETCH_ASSOC);
         
-        $erreurs['check_login'] = "Mauvais identifiant";
         $validation = false;
         if(password_verify($user->getPassword(),$data['u_password'])){
-
+            $user->hydrate($data);
             if($user->isValidate()) {
-                session_start();
-                $user->hydrate($data);
+                // session_start();
                 $_SESSION['user'] = serialize($user);
                 $validation = true;
-                $_SESSION['valid'] = true;
             } else {
                 $erreurs['check_login'] = "pas validé renvoi mail ?";
             }
-            
+        } else {
+            $erreurs['check_login'] = "Mauvais identifiant";
         }
 
         echo json_encode(array('validation' => $validation, 'erreurs' => $erreurs));
     }
 
     public function checkFormAccount() {
-        session_start();
+        // session_start();
         $user = unserialize($_SESSION['user']);
 
         foreach ($_POST as $key => $value) {
@@ -264,6 +262,22 @@ class UserController extends Controller
         }
         echo json_encode(array('validation' => $validation, 'erreurs' => $erreurs));
 
+
+    }
+
+
+    public function validate($slug)
+    {
+        $query = "UPDATE ws_users SET u_validate=true, u_validation=NULL WHERE u_validation=:v";
+        $data = [
+            'v' => [
+                PDO::PARAM_STR => $slug
+            ]
+        ];
+        Database::executeSql($query,$data);
+
+        header('Location: /');
+        exit;
 
     }
 }
