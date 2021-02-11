@@ -1,3 +1,3 @@
 import { form } from "./functions.js"
 
-form('form_signup', 'signup')
+form('form_signup', 'signup', 'index')
