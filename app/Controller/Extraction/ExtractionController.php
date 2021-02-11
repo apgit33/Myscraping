@@ -6,26 +6,25 @@ use App\Controller\Controller;
 use App\Models\Database\Database;
 use PDO;
 
-class ExtractionController extends Controller{
-    
+class ExtractionController extends Controller
+{
+
     /**
      * Get all extraction
      *
      * @return collection
      */
-    public function getAll()
+    public static function getAll()
     {
-        // session_start();
-
         $query = "SELECT * FROM ws_scraps WHERE s_user_id=:id";
         $data = [
             'id' => [
-                PDO::PARAM_INT =>unserialize($_SESSION['user'])->getId()
+                PDO::PARAM_INT => unserialize($_SESSION['user'])->getId()
             ]
         ];
-        $response = Database::executeSql($query,$data);
+
+        $response = Database::executeSql($query, $data);
 
         return $response->fetchAll(PDO::FETCH_ASSOC);
     }
-    
 }
