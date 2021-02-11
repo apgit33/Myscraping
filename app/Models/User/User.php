@@ -84,7 +84,7 @@ class User
      * @param  integer  $_id  The id of the user.
      *
      * @return  self
-     */ 
+     */
     public function set_u_id($_id)
     {
         $this->_id = $_id;
@@ -243,7 +243,7 @@ class User
      *
      * @return  self
      */
-    public function set_u_validation(string $_validation)
+    public function set_u_validation(string $_validation = null)
     {
         $this->_validation = $_validation;
 
@@ -272,14 +272,11 @@ class User
 
     public function hydrate(array $data)
     {
-        foreach ($data as $key => $value)
-        {
-            $method = 'set_'.$key;
-            // var_dump($method);
-            if(method_exists($this, $method))
-            {
+        foreach ($data as $key => $value) {
+            $method = 'set_' . $key;
+            if (method_exists($this, $method)) {
                 $this->$method($value);
-            }    
+            }
         }
     }
 }
