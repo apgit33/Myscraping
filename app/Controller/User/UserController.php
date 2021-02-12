@@ -61,9 +61,9 @@ class UserController extends Controller
         }
 
         if (!v::alpha('-')->length(2, 45)->validate($_POST['u_first_name'])) $erreurs['check_firstname'] = 'check firstname';
-    
+
         if (!v::alpha('-')->length(2, 45)->validate($_POST['u_last_name'])) $erreurs['check_lastname'] = 'check_lastname';
-        
+
         if (!$this->existEmail($_POST['u_email'])) {
             if (v::email()->validate($_POST['u_email'])) {
                 $user->set_u_email($_POST['u_email']);
@@ -74,9 +74,9 @@ class UserController extends Controller
             $erreurs['check_email'] = 'Email deja existant';
         }
         if (!v::phone()->validate($_POST['u_phone'])) $erreurs['check_phone'] = 'Entrez un numéro valide';
-     
+
         if (v::alpha('-')->length(2, 45)->validate($_POST['u_password'])) {
-            
+
             if ($_POST['password_confirm'] !== $_POST['u_password']) {
                 $erreurs['check_password_confirm'] = 'mdp confirmation';
             }
@@ -90,7 +90,7 @@ class UserController extends Controller
 
             // $mail_crypt = Crypt::encryptSimple($user->getEmail());
             // $id_crypt = Crypt::encryptSimple($user->getId());
-            $id = uniqid('',true);
+            $id = uniqid('', true);
             // $user->set_u_validation(hash('sha1', "$mail_crypt#$id_crypt"));
             $user->set_u_validation(hash('sha1', $id));
             $this->addUser($user);
@@ -98,7 +98,7 @@ class UserController extends Controller
             // $user->set_u_validation($mail_crypt."°".$id_crypt);
             $user->set_u_validation($id);
             $this->sendMail($user);
-        } 
+        }
 
         echo json_encode(array('validation' => empty($erreurs), 'erreurs' => $erreurs));
     }
@@ -120,7 +120,7 @@ class UserController extends Controller
         //envoi mail de confirmation
         $sujet = "Myscraping - validez votre compte";
         $message = "Confirme ton compte: <a href = '" . SERVER_URI . "/confirm-" . $user->getValidation() . "'>Confirmation</a>.<br>";
-        
+
         // mail($user->getEmail(),$sujet,$message);
         // Mail::mailTo($user,$sujet,$message);
     }
@@ -170,33 +170,69 @@ class UserController extends Controller
 
     public function checkFormAccount()
     {
-        $this->isSession();
+        $erreurs = [];
 
         $user = unserialize($_SESSION['user']);
 
         foreach ($_POST as $key => $value) {
             $_POST[$key] = trim($value);
         }
-        $validation = false;
-        $erreurs['check_firstname'] = 'check firstname';
 
-        var_dump($_POST);
-        if (v::alpha('-')->length(2, 45)->validate($_POST['firstName'])) {
-            $user->set_u_first_name($_POST['firstName']);
-        } else {
-            $erreurs['check_firstname'] = 'check firstname';
+        if (!v::alpha('-')->length(2, 45)->validate($_POST['u_first_name'])) $erreurs['check_firstname'] = 'check firstname';
+
+        if (!v::alpha('-')->length(2, 45)->validate($_POST['u_last_name'])) $erreurs['check_lastname'] = 'check_lastname';
+
+        if (!v::phone()->validate($_POST['u_phone'])) $erreurs['check_phone'] = 'Entrez un numéro valide';
+
+        if (!empty($_POST['u_password'])) {
+
+            if (!password_verify($_POST['u_password'], $user->getPassword())) $erreurs['check_password'] = 'check_password';
+
+            if ($_POST['password_new'] !== $_POST['password_confirm']) $erreurs['check_password_confirm'] = 'check_password';
         }
-        if (v::alpha('-')->length(2, 45)->validate($_POST['lastName'])) {
-            $user->set_u_last_name($_POST['lastName']);
-        } else {
-            $erreurs['check_lastname'] = 'check firstname';
+
+        if (empty($erreurs)) {
+
+            $user->hydrate([
+                'u_first_name' => $_POST['u_first_name'],
+                'u_last_name' => $_POST['u_last_name'],
+                'u_phone' => $_POST['u_phone']
+            ]);
+
+            if (!empty($_POST['password_new'])) $user->set_u_password(password_hash($_POST['password_new'], PASSWORD_DEFAULT));
+
+            $this->update($user);
+
+            $_SESSION['user'] = serialize($user);
         }
-        echo json_encode(array('validation' => $validation, 'erreurs' => $erreurs));
+        echo json_encode(array('validation' => empty($erreurs), 'erreurs' => $erreurs));
     }
 
-    public function show() {  
- 
-        $this->isSession();
+    public function update(User $user)
+    {
+        $query = "UPDATE ws_users SET u_first_name=:fname,u_last_name=:lname,u_phone=:phone, u_password=:pwd WHERE u_id=:id";
+        $data = [
+            'id' => [
+                PDO::PARAM_INT => $user->getId()
+            ],
+            'fname' => [
+                PDO::PARAM_STR => $user->getFirstName()
+            ],
+            'lname' => [
+                PDO::PARAM_STR => $user->getLastName()
+            ],
+            'phone' => [
+                PDO::PARAM_STR => $user->getPhone()
+            ],
+            'pwd' => [
+                PDO::PARAM_STR => $user->getPassword()
+            ]
+        ];
+        Database::executeSql($query, $data);
+    }
+
+    public function show()
+    {
 
         $this->render('form_user', [
             'user' => array_values((array)unserialize($_SESSION['user'])),
@@ -211,7 +247,7 @@ class UserController extends Controller
         $query = "UPDATE ws_users SET u_validate=true, u_validation=NULL WHERE u_validation=:v";
         $data = [
             'v' => [
-                PDO::PARAM_STR => hash('sha1',$slug)
+                PDO::PARAM_STR => hash('sha1', $slug)
             ]
         ];
         Database::executeSql($query, $data);
@@ -240,18 +276,11 @@ class UserController extends Controller
             header('Location: signin');
             exit();
         }
-        
+
         $this->render('index', [
             'scraps' => ExtractionController::getAll(),
             'SERVER_URI' => SERVER_URI,
             'user' => $_SESSION['user']
         ]);
-    }
-
-    public function isSession() {
-        if (!isset($_SESSION['user'])) {
-            header('Location: '.SERVER_URI);
-            exit();
-        }
     }
 }
