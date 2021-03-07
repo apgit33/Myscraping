@@ -1,0 +1,24 @@
+body {
+    background-color: $background-primary;
+    height: 100vh;
+}
+.link, .link:hover {
+    color: $link-color;
+}
+
+h2 {
+    padding-top: 25px;
+    margin-top: 0px;
+    background-color: #36383E;
+    padding: 25px 0;
+    font-family: $font-title;
+    margin-right: -13px;
+    margin-left: -12px;
+    border-top-left-radius: 60px;
+    border-top-right-radius: 60px;
+    color: white!important;
+}
+
+.verif {
+    color: $color-red;
+}

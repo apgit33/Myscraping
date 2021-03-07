@@ -1,0 +1,112 @@
+{% extends "base.html.twig" %}
+{% block title %}
+New extract
+{% endblock %}
+{% block css %}
+"{{ SERVER_URI }}/assets/css/index.css"
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div id="c_parent_login" class="columns is-centered is-desktop is-vcentered is-flex-touch">
+        <div class="column is-6 c_login">
+            <h2 class="title is-2 has-text-centered">Register new extract</h2>
+            <form novalidate id="form_extract" method="POST">
+                <div class="columns">
+                    <div class="column">
+                        <div class="field">
+                            <p class="control is-expanded">
+                                <input class="input" type="text" placeholder="Site" name="s_site">
+                            </p>
+                            <p id="check_site" class="verif"></p>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <p class="control is-expanded">
+                                <input id="switchdataset" type="checkbox" name="dataset" class="switch is-rounded is-info" >
+                                <label for="switchdataset">Data set</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div id="dataset"></div>
+                    <div class="column">
+                        <div class="field">
+                            <p class="control is-expanded">
+                                <div class="select is-fullwidth">
+                                    <select name="category">
+                                        <option  value="0" selected="selected" disabled>Choose a category</option>
+                                        {% for category in categories %}
+                                            <option value={{ category.c_id }}
+
+                                            >{{ category.c_name }}</option>
+                                        {% endfor %}
+                                        <option id="cat_other" value="-1">Other</option>
+                                    </select>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                    <div id="new_cat"></div>
+                    <div class="column">
+                        <div class="field">
+                            <p class="control is-expanded">
+                                <input class="input" type="text" placeholder="Periodicity">
+                            </p>
+                        </div>
+                    </div>
+                </div>             
+                <div class="columns">
+                    <div class="column">
+                        <div class="field">
+                            <p class="control is-expanded">
+                                <input class="input" type="text" placeholder="Patch css">
+                            </p>
+                            <p id="check_firstname" class="verif"></p>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <p class="control is-expanded">
+                                <div class="select is-fullwidth">
+                                    <select name="type">
+                                        <option  value="0" selected="selected" disabled>Choose a type</option>
+                                        {% for type in types %}
+                                            <option value={{ type.dt_id }}
+
+                                            >{{ type.dt_name }}</option>
+                                        {% endfor %}
+                                        <option id="cat_other" value="-1">Other</option>
+                                    </select>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                    <div id="new_typ"></div>
+
+                </div>
+                <button id="new_data" class="button">new data +</button>
+
+                <div class="field">
+                    <p class="control">
+                        <input type="submit" class="input button is-centered is-medium" name="register" value="Confirm">
+                    </p>
+                </div>
+            </form>
+            <div class="field has-text-centered">
+                <p class="control">
+                    <a class="button" href=" {{ SERVER_URI }}">
+                        Cancel
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scriptjs %}
+    <script src="{{ SERVER_URI }}/assets/js/form_extract.js" type="module"></script>
+{% endblock %}
+

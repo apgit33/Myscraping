@@ -1,0 +1,31 @@
+//list d'import
+@import "import.scss";
+
+#c_parent_register {
+    height: 90vh;
+    .c_register {
+        background: $background-secondary;
+        box-shadow: 0px 0px 4px 4px #BBBBBB;
+        border-radius: 62px;
+        // max-width: 634px;
+        #form_signup {
+            // .control input:not(:last-child) {
+                // margin-bottom: 20px;
+            // }
+            input {
+                font-family: $font-text;  
+                margin-bottom: 10px;
+                border-radius: 8px;
+                &[name=register] {
+                    background-color: $color-secondary;
+                    color: $color-primary;
+                    border: none;
+                }
+                &:focus {
+                    border-color: $color-primary;
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+}

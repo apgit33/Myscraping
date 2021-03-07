@@ -1,0 +1,61 @@
+@charset "UTF-8";
+@font-face {
+  font-family: 'nunito-bold';
+  src: url("../fonts/nunito/Nunito-Bold.eot");
+  src: local("☺"), url("../fonts/nunito/Nunito-Bold.woff") format("woff"), url("../fonts//nunito/Nunito-Bold.ttf") format("truetype"), url("../fonts//nunito/Nunito-Bold.svg") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+@font-face {
+  font-family: 'nunito-regular';
+  src: url("../fonts/nunito/Nunito-Regular.eot");
+  src: local("☺"), url("../fonts/nunito/Nunito-Regular.woff") format("woff"), url("../fonts//nunito/Nunito-Regular.ttf") format("truetype"), url("../fonts//nunito/Nunito-Regular.svg") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+body {
+  background-color: #3087b8;
+  height: 100vh; }
+
+.link, .link:hover {
+  color: #2348cf; }
+
+h2 {
+  padding-top: 25px;
+  margin-top: 0px;
+  background-color: #36383E;
+  padding: 25px 0;
+  font-family: "nunito-bold";
+  margin-right: -13px;
+  margin-left: -12px;
+  border-top-left-radius: 60px;
+  border-top-right-radius: 60px;
+  color: white !important; }
+
+.verif {
+  color: red; }
+
+#c_parent_login {
+  height: 100vh; }
+  #c_parent_login .c_login {
+    background: #ffffffef;
+    box-shadow: 0px 0px 4px 4px #BBBBBB;
+    border-radius: 62px; }
+    #c_parent_login .c_login #form_signin .control input:not(:last-child) {
+      margin-bottom: 20px; }
+    #c_parent_login .c_login #form_signin input {
+      font-family: "nunito-regular";
+      border-radius: 8px; }
+      #c_parent_login .c_login #form_signin input[name=login] {
+        background-color: #3DBA29;
+        color: #343a40;
+        border: none; }
+      #c_parent_login .c_login #form_signin input:focus {
+        border-color: #343a40;
+        box-shadow: none; }
+
+.verif {
+  margin: 20px; }
+
+.new {
+  padding-right: 25px; }
+
+/*# sourceMappingURL=signin.css.map */
