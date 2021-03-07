@@ -1,99 +1,94 @@
-
-
 {% extends "base.html.twig" %}
 {% block title %}
-Test
+Home
 {% endblock %}
 {% block css %}
-"assets/css/signup.css"
+"assets/css/index.css"
 {% endblock %}
 {% block content %}
 
-                <div class="columns is-centered m-0 content">
-                    <!-- Content -->
-                    <div class="column ">
-                        <h2 class="title has-text-centered">Liste des produits disponible</h2>
-                        <div class="table-container">
-                            <table class="table is-hoverable is-striped is-responsive">
-                                <thead>
-                                    <tr>
-                                        <th>Nom</th>
-                                        <th>Référence</th>
-                                        <th>Localisation</th>
-                                        <th>Adresse</th>
-                                        <th>Catégorie</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for produit in scraps %}
-                                        <tr>
-                                            <td class="is-vcentered"> {{ produit.s_title }}</td>
-                                            <td class="is-vcentered"> {{ produit.s_site }}</td>
-                                            <td class="is-vcentered"> {{ produit.s_periodicity }}</td>
-                                            <td class="is-vcentered">
-                                                <div class="field is-grouped">
-                                                    <div class="control">
-                                                        <form action="edit.php" method="GET">
-                                                            <input type="hidden" name="id" value={{ produit.id }}>
-                                                            <button type ="submit" class="button is-success far fa-edit" name="edit" value="1"></button>
-                                                        </form>
+    <div class="columns is-centered m-0 content">
+        <!-- Content -->
+        <div class="column ">
+            <a href="{{ SERVER_URI }}/user/extraction/register" class="button">new +</a>
+            <div class="table-container">
+                <table class="table is-hoverable is-striped is-responsive">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Name</th>
+                            <th>Site</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for produit in scraps %}
+                            <tr>
+                                <td class="is-vcentered"> {{ produit.s_date }}</td>
+                                <td class="is-vcentered"> {{ produit.s_title }}</td>
+                                <td class="is-vcentered"> {{ produit.s_site }}</td>
+                                <td class="is-vcentered">
+                                    <div class="field is-grouped">
+                                        <div class="control">
+                                            <form action="edit.php" method="GET">
+                                                <input type="hidden" name="id" value={{ produit.id }}>
+                                                <button type ="submit" class="button is-success far fa-edit" name="edit" value="1"></button>
+                                            </form>
+                                        </div>
+                                        
+                                        <div class="control">
+                                            <button class="button btn_delete is-danger far fa-trash-alt" name="delete"></button>
+                                            <!-- Création de la modal de suppression -->
+                                            <div class="modal">
+                                                <form class="modal-content" action="" method="post">
+                                                    <div class="container-modal">
+                                                        <p class="title is-3 is-uppercase">no going back</p>
+                                                        <div class="buttons is-centered">
+                                                            <div class="control">
+                                                                <button type="submit" class="button is-success">Cancel</button>
+                                                            </div>
+                                                            <div class="control">
+                                                                <button type="submit" class="button is-danger" name="modal_delete" value={{ produit.id }}>Delete</button>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    
-                                                    <div class="control">
-                                                        <button class="button btn_delete is-danger far fa-trash-alt" name="delete"></button>
-                                                        <!-- Création de la modal de suppression -->
-                                                        <div class="modal">
-                                                            <form class="modal-content" action="" method="post">
-                                                                <div class="container-modal">
-                                                                    <p class="title is-3">Supprimer le produit : {{ produit.name }}</p>
-                                                                    <div class="buttons is-centered">
-                                                                        <div class="control">
-                                                                            <button type="submit" class="button is-success">Cancel</button>
-                                                                        </div>
-                                                                        <div class="control">
-                                                                            <button type="submit" class="button is-danger" name="modal_delete" value={{ produit.id }}>Delete</button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </form>
-                                                            <button class="modal-close is-large" aria-label="close"></button>
-                                                        </div> 
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-    
-                                    {% else %}
-                                        <p class="">Il n'existe aucun produits</p>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                        <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-                            <form action="" method="get">
-                                <button class="button pagination-previous" type="submit" name="page" value={{ cPage - 1 }}
-                                    {% if cPage == 1 %}
-                                        disabled title="Vous êtes sur la 1ère page"
-                                    {% endif %}
-                                >Précédent</button>
-                            </form>                 
-                            
-                            <form action="" method="get">
-                                <button class="button pagination-next" type="submit" name="page" value={{ cPage + 1 }}
-                                    {% if cPage == nbPage %}
-                                        disabled title="Vous êtes sur la dernière page"
-                                    {% endif %}
-                                >Suivant</button>
-                        
-                            </form>
-                        </nav>
-                    </div>
-                </div>
+                                                </form>
+                                                <button class="modal-close is-large" aria-label="close"></button>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        {% else %}
+                            <p class="">Il n'existe aucun produits</p>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
+            <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+                <form action="" method="get">
+                    <button class="button pagination-previous" type="submit" name="page" value={{ cPage - 1 }}
+                        {% if cPage == 1 %}
+                            disabled title="Vous êtes sur la 1ère page"
+                        {% endif %}
+                    >Précédent</button>
+                </form>                 
+                
+                <form action="" method="get">
+                    <button class="button pagination-next" type="submit" name="page" value={{ cPage + 1 }}
+                        {% if cPage == nbPage %}
+                            disabled title="Vous êtes sur la dernière page"
+                        {% endif %}
+                    >Suivant</button>
+            
+                </form>
+            </nav>
         </div>
-        {% endblock %}
+    </div>
+</div>
+{% endblock %}
 
         {% block scriptjs %}
-            <script src="assets/js/test.js" crossorigin="anonymous"></script>
+            <!-- <script src="assets/js/test.js" crossorigin="anonymous"></script> -->
         {% endblock %}

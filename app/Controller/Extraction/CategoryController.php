@@ -12,7 +12,7 @@ class CategoryController
      *
      * @return collection
      */
-    public function getAll()
+    public static function getAll()
     {
         $query = "SELECT c_id, c_name FROM ws_categories";
         $response = Database::executeSql($query);

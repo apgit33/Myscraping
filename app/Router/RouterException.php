@@ -8,6 +8,7 @@ class RouterException extends Exception
 {
     static function view()
     {
-        echo "something wrong";
+        header('Location: '.SERVER_URI);
+        exit();
     }
 }

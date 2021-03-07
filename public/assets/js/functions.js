@@ -1,12 +1,12 @@
 export function form(id, destForm, destWin) {
     //on récupère le formulaire
-    const f_signup = document.getElementById(id);
+    const form_custom = document.getElementById(id);
 
     //on récupère les div d'erreurs
     const f_erreur = document.getElementsByClassName('verif');
 
     //on ajoute un écouteur d'évènement sur la soumision du formulaire
-    f_signup.addEventListener('submit', e => {
+    form_custom.addEventListener('submit', e => {
         // on empêche l'envoie naturel du formulaire
         e.preventDefault();
 
@@ -16,7 +16,7 @@ export function form(id, destForm, destWin) {
         }
 
         //on récupère les données du formulaire sous forme de data (clé=>valeur)
-        const formData = new FormData(f_signup);
+        const formData = new FormData(form_custom);
 
         //on envoie les données du formulaire en ajax
         fetch(destForm, {

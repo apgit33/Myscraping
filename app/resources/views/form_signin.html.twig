@@ -8,7 +8,7 @@ Connection
 {% block content %}
 <div class="container">
     <div id="c_parent_login" class="columns is-centered is-desktop is-vcentered is-flex-touch">
-        <div class="column is-one-third c_login pt-0">
+        <div class="column is-desktop is-one-third c_login pt-0">
             <h2 class="title is-3 has-text-centered">SIGN IN</h2>
             <form novalidate method="POST" id="form_signin">
                 <div class="field">
@@ -33,7 +33,7 @@ Connection
                     </div>
                 </div>
             </form>
-            <p id="check_login" class="verif has-text-centered"></p>
+            <p id="check_login" class="verif"></p>
 
             <p class="new has-text-right">No account ? <a href="{{ SERVER_URI }}/signup" class="link">create one !</a></p>
         </div>
@@ -41,5 +41,5 @@ Connection
 </div>
 {% endblock %}
 {% block scriptjs %}
-    <script src="assets/js/form_signin.js" crossorigin="anonymous"></script>
+    <script src="assets/js/form_signin.js" type="module"></script>
 {% endblock %}

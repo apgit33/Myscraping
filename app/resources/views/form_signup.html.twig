@@ -1,73 +1,81 @@
 {% extends "base.html.twig" %}
 {% block title %}
-Test
+Signup
 {% endblock %}
 {% block css %}
 "assets/css/signup.css"
 {% endblock %}
 {% block content %}
 <div class="container">
-    <div id="c_parent_login" class="columns is-centered is-desktop is-vcentered is-flex-touch">
-        <div class="column is-6 c_login">
-            <h2 class="title is-2 has-text-centered">REGISTER NEW ACCOUNT</h2>
-            <form id="form_signup" method="POST">
-                <div class="row">
-                    <div class="col-12">
+    <div id="c_parent_register" class="columns is-centered is-desktop is-vcentered is-flex-touch">
+        <div class="column is-desktop is-half c_register pt-0">
+            <h2 class="title is-3 has-text-centered">REGISTER NEW ACCOUNT</h2>
+            <form novalidate id="form_signup" method="POST">
+                <div class="columns">
+                    <div class="column"> 
                         <div class="field">
                             <div class="control">
-                                <input  class="input" type="text" name="firstName" id="f_name" value="{{ u_first_name }}" placeholder="Enter first name">
+                                <input class="input" type="text" name="u_first_name" id="f_name" value="{{ u_first_name }}"
+                                    placeholder="Enter first name">
                             </div>
                             <p id="check_firstname" class="verif"></p>
                         </div>
                         <div class="field">
                             <div class="control">
-                                <input  class="input" type="text" name="lastName" id="l_name" value="{{ u_last_name }}" placeholder="Enter last name">
+                                <input required class="input" type="email" name="u_email" id="email" value="{{ u_mail }}"
+                                    placeholder="Enter email">
+                            </div>
+                            <p id="check_email" class="verif"></p>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <input class="input" type="password" name="u_password" placeholder="Enter password" id="password">
+                            </div>
+                            <p id="check_password" class="verif"></p>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <div class="control">
+                                <input class="input" type="text" name="u_last_name" id="l_name" value="{{ u_last_name }}"
+                                    placeholder="Enter last name">
                             </div>
                             <p id="check_lastname" class="verif"></p>
                         </div>
                         <div class="field">
                             <div class="control">
-                                <input required class="input" type="email" name="email" id="email" value="{{ u_mail }}" placeholder="Enter email">
+                                <input class="input" type="text" name="u_phone" id="phone" value="{{ u_phone }}"
+                                    placeholder="Enter phone">
                             </div>
-                            {# <p class="help is-danger">This email is invalid</p> #}
-                            <div id="check_email" class="verif"></div>
-                        </div>
-                        
-                        <div class="field">
-                            <div class="control">
-                                <input class="input" type="text" name="phone" id="phone" value="{{ u_phone }}" placeholder="Enter phone">
-                            </div>
-                            <div id="check_phone" class="verif"></div>
-                        </div>
-    
-                        <div class="field">
-                            <div class="control">
-                                <input  class="input" type="password" name="password" placeholder="Enter password" id="password">
-                            </div>
-                            <div id="check_password" class="verif"></div>
+                            <p id="check_phone" class="verif"></p>
                         </div>
                         <div class="field">
                             <div class="control">
-                                <input  class="input" type="password" name="password_confirm" placeholder="Confirm password" id="password_confirm">
+                                <input class="input" type="password" name="password_confirm" placeholder="Confirm password"
+                                    id="password_confirm">
                             </div>
-                            <div id="check_password_confirm" class="verif"></div>
-                        </div>
-                        <div class="field">
-                            <div class="control">
-                                <button class="button is-success">
-                                REGISTER
-                                </button>
-                            </div>
+                            <p id="check_password_confirm" class="verif"></p>
                         </div>
                     </div>
                 </div>
+                <div class="field">
+                    <p class="control">
+                        <input type="submit" class="input button is-centered is-medium" name="register" value="REGISTER">
+                    </p>
+                </div>
             </form>
+            <div class="field has-text-centered">
+                <p class="control">
+                    <a class="button" href=" {{ SERVER_URI }}">
+                        Cancel
+                    </a>
+                  </p>
+            </div>
         </div>
     </div>
 </div>
 {% endblock %}
 
 {% block scriptjs %}
-    <script src=" {{ SERVER_URI }}/assets/js/test.js" crossorigin="anonymous"></script>
+<script src="assets/js/form_signup.js" type="module"></script>
 {% endblock %}
-

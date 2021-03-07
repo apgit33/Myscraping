@@ -1,23 +1,28 @@
 //list d'import
-@import "_fonts.scss";
-@import "_variables.scss";
+@import "import.scss";
 
 // -----------------
 // Formulaire de connexion
 // -----------------
-#c_parent_login {
+#c_parent_register {
     height: 100vh;
-    .c_login {
-        background: #FFFFFF;
+    .c_register {
+        background: $background-secondary;
         box-shadow: 0px 0px 4px 4px #BBBBBB;
         border-radius: 62px;
-        max-width: 634px;
-        #f_login {
+        // max-width: 634px;
+        #form_signup {
+            // .control input:not(:last-child) {
+                // margin-bottom: 20px;
+            // }
             input {
-                font-family: $font-text; 
-                &[name=login] {
-                    background-color: $color-primary;
-                    color: $color-secondary;
+                font-family: $font-text;  
+                margin-bottom: 10px;
+                border-radius: 8px;
+                &[name=register] {
+                    background-color: $color-secondary;
+                    color: $color-primary;
+                    border: none;
                 }
                 &:focus {
                     border-color: $color-primary;
@@ -26,33 +31,4 @@
             }
         }
     }
-}
-
-body {
-    background-color: #3087b8;
-}
-.input {
-    border-radius: 8px;
-}
-
-.control {
-    max-width: 421px;
-    margin: 35px auto;
-}
-
-.column {
-    padding-top: 0;
-}
-h2 {
-    padding-top: 25px;
-    margin-top: 0px;
-    background-color: #36383E;
-    padding-bottom: 25px;
-    padding-right: 0px;
-    padding-left: 0px;
-    margin-right: -13px;
-    margin-left: -12px;
-    border-top-left-radius: 60px;
-    border-top-right-radius: 60px;
-    color: white!important;
 }
